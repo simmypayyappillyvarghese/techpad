@@ -20,3 +20,7 @@ CMS style blog site based on MVC paradigm utilizing Handlebar.js as Templating L
 
 
 ## Screenshots
+
+
+# TO DO 
+* Add the profile image option for user
