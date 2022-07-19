@@ -1,5 +1,7 @@
-
-    <div>
-        Home
+    <div class="container-fluid d-flex flex-column justify-content-between py-2 my-2">
+      {{#if logged_in}}
+       <h4 class="py-2">Your Dashboard</h4>
+      {{/if}}
+       <button id="new-post-btn" class="btn my-5">Create New Post</button>
     </div>
    

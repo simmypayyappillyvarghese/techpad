@@ -6,7 +6,7 @@
 
 a,a:hover,a:link,a:visited{
     
-    color:var(--link-color);
+    color:#fff; 
     text-decoration: none;
 }
 
@@ -34,4 +34,24 @@ nav{
 nav a{
 
     padding: 0 2rem; 
+
 }
+
+
+#login-container{
+    background-color: var(--link-color);
+    border-radius: 1rem;
+    width:50%;
+    
+}
+
+#login-container a{
+    color:var(--nav-color); 
+}
+
+.btn{
+    background-color:var(--nav-color);
+    color: var(--body-color);
+}
+
+

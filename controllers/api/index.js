@@ -6,4 +6,6 @@ router.use('/user',userRoutes);
 router.use('/home',homeRoutes);
 
 
+
+
 module.exports=router;
