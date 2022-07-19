@@ -1,0 +1,37 @@
+*{
+    margin:0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+a,a:hover,a:link,a:visited{
+    
+    color:var(--link-color);
+    text-decoration: none;
+}
+
+:root{
+
+    --body-color:#e8d5b7;
+    --text-color:#0e2431;
+    --link-color:#f9b248;
+    --secondary-color:#fc3a52;
+    --nav-color:#0e2431;
+}
+
+body{
+
+    background-color: #fff;
+    color: var(--text-color);
+}
+nav{
+
+    height:30%;
+    background-color: var(--nav-color);
+    padding:2rem;
+}
+
+nav a{
+
+    padding: 0 2rem; 
+}
