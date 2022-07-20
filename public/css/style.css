@@ -6,7 +6,7 @@
 
 a,a:hover,a:link,a:visited{
     
-    color:#fff; 
+    color:var(--nav-color); 
     text-decoration: none;
 }
 
@@ -34,6 +34,7 @@ nav{
 nav a{
 
     padding: 0 2rem; 
+    color: #fff !important;
 
 }
 
@@ -88,13 +89,15 @@ h4{
     cursor: pointer;
 
 }
+
 .post-header h6{
     text-transform: uppercase;
+    /* cursor: pointer; */
 }
 
-.comment-div {
+/* .comment-div {
     display: none !important;
-}
+} */
 
 .displayComment{
     display: flex !important;

@@ -4,8 +4,6 @@ const postContainer=document.querySelector('.post-div-container');
 const commentElements=document.querySelectorAll('[data-commentId]'); 
 
 
-
-
 async function commentHandler(event){
     event.preventDefault();
     const comment=this.previousElementSibling.value;

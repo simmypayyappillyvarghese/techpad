@@ -105,3 +105,7 @@ Below is the Create Post screenshot
 
 ![Create Post Screenshot](./public/images/create_post_screenshot.png)
 
+
+Below is the Screenshot when Uer is logged in and clicks on a post
+
+![ Post Screenshot](./public/images/post_screenshot.png)
