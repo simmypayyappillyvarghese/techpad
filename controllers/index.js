@@ -1,37 +1,38 @@
 const router = require("express").Router();
 const apiRoutes = require("./api");
 const { User, Post, Comment } = require("../models");
-const sequelize=require('../config/connection.js');
+const sequelize = require("../config/connection.js");
 
 router.use("/api", apiRoutes);
-
-
 
 router.get("/", async (req, res) => {
   res.redirect("/home");
 });
 
-
 //LOGIN ROUTE
 router.get("/login", async (req, res) => {
   if (req.session.logged_in) {
-    res.render("home", { logged_in: req.session.logged_in ,username: req.session.username });
+    res.render("home", {
+      logged_in: req.session.logged_in,
+      username: req.session.username,
+    });
   } else {
-    res.render("login", { logged_in: req.session.logged_in});
+    res.render("login", { logged_in: req.session.logged_in });
   }
 });
-
 
 //SIGN UP ROUTE
 
 router.get("/signup", async (req, res) => {
   if (req.session.logged_in) {
-    res.render("home", { logged_in: req.session.logged_in ,username: req.session.username });
+    res.render("home", {
+      logged_in: req.session.logged_in,
+      username: req.session.username,
+    });
   } else {
-    res.render("signup", { logged_in: req.session.logged_in});
+    res.render("signup", { logged_in: req.session.logged_in });
   }
 });
-
 
 //LOGOUT ROUTE
 
@@ -39,14 +40,10 @@ router.get("/logout", async (req, res) => {
   res.render("home", { logged_in: req.session.logged_in });
 });
 
-
 //HOME ROUTE
 
-
 router.get("/home", async (req, res) => {
-  console.log("He;llo");
   try {
-  
     const postData = await Post.findAll({
       attributes: ["id", "title", "content", "created_at"],
       include: [
@@ -56,7 +53,6 @@ router.get("/home", async (req, res) => {
         },
       ],
     });
-
 
     let posts = postData.map((post) => post.get({ plain: true }));
 
@@ -83,98 +79,123 @@ router.get("/home", async (req, res) => {
   }
 });
 
+//POST ROUTE
 
 router.get("/post", async (req, res) => {
-   console.log("Entered /post");
-   try{
+  console.log("Entered /post");
+  try {
+    const postData = await sequelize.query(
+      `select distinct P.id as post_id,title,content,P.created_at as post_created_date ,(select user.username from user where user.id=P.user_id) as posted_user,C.comment ,(select username from user where id=C.user_id) as commented_user,C.created_at as comment_created_on from post as P join comment C on P.id=C.post_id where P.id=${req.session.post_id}`
+    );
 
-       //post data-we have post id
-       //comment data
-    //    const postData=await Post.findOne({
-    //     include:[{
-    //         model:Comment,  
-    //         required:true,
-    //         attributes:['comment','user_id'],
-    //     },
-    //     {
-    //         model:User,
-    //         attributes:['username'],
-    //     }
-        
-    //     ],
-    //     attributes:['title','content','created_at'],
-    //     where:{
-    //         id:req.session.post_id
-    //     }
-    //    });
-
-    console.log("post id in /post",req.session.post_id);
-    const postData=await sequelize.query(
-        `select distinct P.id as post_id,title,content,P.created_at as post_created_date ,(select user.username from user where user.id=P.user_id) as posted_user,C.comment ,(select username from user where id=C.user_id) as commented_user,C.created_at as comment_created_on from post as P join comment C on P.id=C.post_id where P.id=${req.session.post_id}`
-      );
-
-
-    //    const userData=await User.findAll({
-    //     include:[{
-    //       model:Song,
-    //       through:Library,
-    //       as:'user_song_list',
-    //       attributes:['id','artist_name','album_name','media_image','song_title','media_url'] 
-    //     } 
-    //     ],
-    //     where:{
-    //       id:req.session.user_id
-    //     }
-    //   });
-
-
-
-    //    let post=postData.get({plain:true});
-    console.log(postData);
-    let postDate=postData[0][0].post_created_date;
-    let post={
-        id:postData[0][0].post_id,
-        title:postData[0][0].title,
-        content:postData[0][0].content,
-        postedBy:postData[0][0].posted_user,
-        postenOn:new Date(postDate).getMonth() + "/" +new Date(postDate).getDate() +"/" + new Date(postDate).getFullYear()
-        
+    let postDate = postData[0][0].post_created_date;
+    let post = {
+      id: postData[0][0].post_id,
+      title: postData[0][0].title,
+      content: postData[0][0].content,
+      postedBy: postData[0][0].posted_user,
+      postenOn:
+        new Date(postDate).getMonth() +
+        "/" +
+        new Date(postDate).getDate() +
+        "/" +
+        new Date(postDate).getFullYear(),
     };
-   
-     const comments=[];
 
+    const comments = [];
 
-        for(let j=0;j<postData[0].length;j++){
+    for (let j = 0; j < postData[0].length; j++) {
+      let date = postData[0][j].comment_created_on;
 
-           let date=postData[0][j].comment_created_on;
+      comments.push({
+        content: postData[0][j].comment,
+        commentedBy: postData[0][j].commented_user,
+        commentedOn:
+          new Date(date).getMonth() +
+          "/" +
+          new Date(date).getDate() +
+          "/" +
+          new Date(date).getFullYear(),
+      });
+    }
 
-            comments.push({ 
-                content:postData[0][j].comment,
-                commentedBy:postData[0][j].commented_user,
-                commentedOn:new Date(date).getMonth() + "/" +new Date(date).getDate() +"/" + new Date(date).getFullYear()
-        })
-
-        
-       
-      }
-      console.log(comments);
-
-       res.render("postDetail",{post,comments,logged_in:req.session.logged_in});
-   }
-   catch(e){
+    res.render("postDetail", {
+      post,
+      comments,
+      logged_in: req.session.logged_in,
+    });
+  } catch (e) {
     console.log(e);
-   }
-
+  }
 });
 
-//DASHBOARD
+//Individual POST  ROUTE
+router.get("/post/:postId", async (req, res) => {
+  if (!req.session.logged_in) {
+    res.render("login", { logged_in: req.session.logged_in });
+  } else {
+    console.log("post parameter", req.params.postId);
+    try {
+      const postData = await Post.findByPk(req.params.postId, {
+        attributes: ["id", "title", "content", "created_at"],
+        include: [
+          User,
+          {
+            model: Comment,
+            include: [User],
+          },
+        ],
+      });
+      if (postData) {
+        const post = postData.get({ plain: true });
+
+        post.postedBy = post.user.username;
+        post.postedOn =
+          parseInt(new Date(post.created_at).getMonth()) +
+          1 +
+          "/" +
+          new Date(post.created_at).getDate() +
+          "/" +
+          new Date(post.created_at).getFullYear();
+
+        const comments = post.comments.map((data) => {
+          return {
+            ...data,
+            commentedOn:
+              parseInt(new Date(data.createdAt).getMonth()) +
+              1 +
+              "/" +
+              new Date(data.createdAt).getDate() +
+              "/" +
+              new Date(data.createdAt).getFullYear(),
+          };
+        });
+
+        res.render("postDetail", {
+          post,
+          comments,
+          logged_in: req.session.logged_in,
+        });
+      } else {
+        res.status(404).json({ message: "Not found" });
+      }
+    } catch (e) {
+      console.log(e);
+    }
+  }
+});
+
+//DASHBOARD ROUTE
 
 router.get("/dashboard", async (req, res) => {
-
-    const postData=await Post.findAll({
-        attributes:['id','title','content','created_at'],
-        where:{user_id:req.session.user_id}
-    })
+  console.log(req.session.logged_in);
+  if (!req.session.logged_in) {
+    res.render("login", { logged_in: req.session.logged_in });
+  } else {
+    const postData = await Post.findAll({
+      attributes: ["id", "title", "content", "created_at"],
+      where: { user_id: req.session.user_id },
+    });
 
     let posts = postData.map((post) => post.get({ plain: true }));
 
@@ -187,24 +208,21 @@ router.get("/dashboard", async (req, res) => {
           new Date(post.created_at).getDate() +
           "/" +
           new Date(post.created_at).getFullYear(),
-          //not able to directly pass it hence added to posts
-          username: req.session.username
+        //not able to directly pass it hence added to posts
+        username: req.session.username,
       };
     });
-   
-    console.log(postData);
-    // console.log(username);
-   
-    res.render("myposts", { logged_in: req.session.logged_in,posts});
 
-  });
+    console.log(postData);
+
+    res.render("myposts", { logged_in: req.session.logged_in, posts });
+  }
+});
 
 //NEW POST ---TO DO
 
 router.get("/newpost", async (req, res) => {
-
-  res.render("newpost",{ logged_in: req.session.logged_in});
-
+  res.render("newpost", { logged_in: req.session.logged_in });
 });
 
 module.exports = router;

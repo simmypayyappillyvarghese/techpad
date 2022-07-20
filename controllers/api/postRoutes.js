@@ -3,10 +3,11 @@ const router=require('express').Router();
 
 const {User,Post,Comment}=require('../../models');
 
+//ROUTE FOR ADDING COMMENT
 
 router.post('/addComment', async (req, res) => {
 
-    console.log("Entering add comment");  
+   
     try {
       req.body.user_id=req.session.user_id;
       const commentData = await Comment.create(req.body);
@@ -21,23 +22,15 @@ router.post('/addComment', async (req, res) => {
       
       }
 
-    //   const comment=commentData.map((comment) => comment.get({ plain: true }));
-    //   console.log(comment);  
-    //     req.session.save(() => {
-    //     req.session.comment = comment;
-    //     res.status(200).json();
-    //   });
-      
-  
-    
     catch (err) {
       res.status(400).json(err);
     }
   });
 
-  router.post('/newpost', async (req, res) => {
 
-    console.log("Entering /newpost");
+  //ROUTE FOR NEW POST
+  
+  router.post('/newpost', async (req, res) => {
 
 try {
       req.body.user_id=req.session.user_id;
@@ -58,52 +51,5 @@ try {
     );
 
 
-
-// router.post('/addComment', async (req, res) => {
-//     try {
-
-//       console.log(req.body);  
-//       req.body.user_id=req.session.user_id
-//       const commentData = await Comment.create(req.body);
-//       console.log(commentData);  
-
-//     //     req.session.save(() => {
-//     //     req.session.user_id = userData.id;
-//     //     req.session.logged_in = true;
-//     //     req.session.username=userData.username;
-//     //     res.status(200).json(userData);
-
-//     //   });
-      
-    
-
-//     if(commentData){
-
-//         // const postData=Post.findOne({
-//         //     attributes:['title','content','user_id','created_at'],
-//         //     where:{post_id:req.body.post_id},
-//         //     include:{
-//         //         model:Comment,
-//         //         attributes:['comment','user_id','created_at']
-//         //     }
-//         // })
-
-//         // const postDetail=postData.map((post)=>post.get({plain:true}));
-
-//         // // res.render("post-detail",{postData});
-//         // res.render("post-detail", {postDetail});
-        
-//     }
-
-    
-//     } catch (err) {
-//       res.status(400).json(err);
-//     }
-//   });
-
-
-//   router.get("/post", async (req, res) => {
-//     res.render("post-detail", { logged_in: req.session.logged_in });
-//   });
 
   module.exports=router;

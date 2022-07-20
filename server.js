@@ -12,10 +12,10 @@ const SequelizeStore = require('connect-session-sequelize')(session.Store);
 const sequelize = require('./config/connection');
 
 const app = express();
-const PORT = process.env.PORT || 3001;
+const PORT = process.env.PORT || 3002;
 
 // Create the Handlebars.js engine object
-// const hbs = exphbs.create({ helpers });
+
 const hbs = exphbs.create();
 
 const sess = {
@@ -38,7 +38,7 @@ app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 app.use(express.static(path.join(__dirname, 'public')));
 
-//Uncomment once the route files are created
+/
 app.use(routes);
 
 sequelize.sync({ force: false }).then(() => {
