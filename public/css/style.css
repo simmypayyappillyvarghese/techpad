@@ -63,22 +63,44 @@ h4{
     color: var(--body-color);
 }
 
-.post-div{
+.post-div,.comment-details-div{
 
     border:1px solid var(--link-color);
     padding: 0.4rem;
     margin:0.3rem;
+    
 }
 
-.post-div h6{
-    background-color:var(--link-color) ;
-    padding: 1rem;
-    color:var(--nav-color);
-    text-transform: uppercase;
+.comment-details-div{
+    font-style: italic;
 }
 
 .post-div small{
     font-style: italic;
     margin:0.2rem;
     padding: 0.1rem;
+}
+
+.post-header{
+    background-color:var(--link-color) ;
+    padding: 1rem;
+    color:var(--nav-color);
+    cursor: pointer;
+
+}
+.post-header h6{
+    text-transform: uppercase;
+}
+
+.comment-div {
+    display: none !important;
+}
+
+.displayComment{
+    display: flex !important;
+    flex-direction: column;
+    padding:2 0;
+    margin:2 0;
+    justify-content:space-between;
+
 }

@@ -20,6 +20,7 @@ router.post('/signup', async (req, res) => {
 
       });
     } catch (err) {
+     
       res.status(400).json(err);
     }
   });
@@ -56,7 +57,7 @@ router.post("/login", async (req, res) => {
       return;
     }
     console.log("Valid Password",validPassword);
-
+console.log("user id after login",userData.id);
     req.session.save(() => {
       req.session.user_id = userData.id;
       req.session.logged_in = true;
