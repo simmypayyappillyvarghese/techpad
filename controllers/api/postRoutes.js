@@ -41,14 +41,13 @@ router.post('/addComment', async (req, res) => {
 
 try {
       req.body.user_id=req.session.user_id;
-      const commentData = await Post.create(req.body);
+      const postData = await Post.create(req.body);
 
       req.session.save(() => {
         req.session.post_id = req.body.post_id;
         
-        res.json({
-          message: "Post Created",
-        });
+        res.json(postData);
+
       });
       
       }
