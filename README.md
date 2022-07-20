@@ -55,9 +55,9 @@ THEN I am able to view comments but I am prompted to log in again before I can a
 
 ## Links
 
-Github Link: 
+Heroku Link : https://damp-woodland-35630.herokuapp.com/ 
 
-Heroku Link :
+Repo Link: https://github.com/simmypayyappillyvarghese/techpad/
 
 ## Technologies/Packages Used
 
