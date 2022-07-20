@@ -15,7 +15,8 @@
   <link rel="stylesheet" href="/css/style.css"/> 
 </head>
 <body>
-    <nav class="container-fluid d-flex justify-content-start align-items-center">
+    <nav class="container-fluid d-flex flex-column align-items-start flex-wrap">
+        <div class="d-flex justify-content-start py-2">
         <a href="/home">Home</a>
         <a href="/dashboard">Dashboard</a>
         {{#unless logged_in}}
@@ -24,9 +25,14 @@
         {{#if logged_in}}
         <a href="/logout" id="logout">Logout</a>
         {{/if}}
+        </div>
+        {{#unless logged_in}}
+        <h4>The Tech Blog</h4>
+        {{/unless}}
     </nav>
-    <main>
+    <main class="d-flex flex-column px-3 py-3">
         {{{body}}}
+        
     </main>
     {{#if logged_in}}
     <script src="/js/logout.js"></script>

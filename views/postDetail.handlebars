@@ -1,0 +1,16 @@
+<div>
+     <div class="post-div d-flex flex-column" data-postId={{post.id}}>
+          <div  class="d-flex justify-content-between align-items-center post-header py-2">
+          <h6>{{post.title}}</h6>
+          <small class="align-self-end">Posted by {{post.postedBy}} on {{post.postenOn}}</small>
+          </div>
+          <p class="py-2">{{post.content}}</p>
+        </div>  
+        {{#each comments as |commentData|}}
+        <div  class="comment-details-div  d-flex flex-column justify-content-center" data-commentId={{post.id}}>
+        <div class="post-header"></div>  
+          <p class="p-2 px-3">{{commentData.content}}</p>
+          <p class="p-2 px-3">-{{commentData.commentedBy}},<span class="px-2">{{commentData.commentedOn}}</span></p>
+        </div>
+        {{/each}}
+</div>

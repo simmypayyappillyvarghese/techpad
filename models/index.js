@@ -19,7 +19,9 @@ User.hasMany(Post,{
 
 /*Relation between Post and Comment:One to Many relation where Post has many Comment and comment belong to a post */
 
-Comment.belongsTo(Post);
+Comment.belongsTo(Post,{
+    foreignKey:'post_id'
+});
 
 Post.hasMany(Comment,{
 
@@ -31,13 +33,19 @@ Post.hasMany(Comment,{
 
 /*Relation between Comment and User:One to Many relation where User has many Comment and comment belong to a user */
 
-Comment.belongsTo(User);
+Comment.belongsTo(User,{
+    foreignKey:'user_id'
+});
 
 User.hasMany(Comment,{
 
     foreignKey:'user_id',
     onDelete: 'CASCADE'
 })
+
+
+// User.belongsToMany(Post, { through: 'Comment' });
+// Post.belongsToMany(User, { through: 'Comment' });
 
 
 
