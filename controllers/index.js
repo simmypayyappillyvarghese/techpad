@@ -173,7 +173,7 @@ router.get("/dashboard", async (req, res) => {
 
     const postData=await Post.findAll({
         attributes:['id','title','content','created_at'],
-        where:{id:req.session.user_id}
+        where:{user_id:req.session.user_id}
     })
 
     let posts = postData.map((post) => post.get({ plain: true }));
