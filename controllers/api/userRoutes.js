@@ -1,32 +1,27 @@
+const router = require("express").Router();
 
-const router=require('express').Router();
+const { User, Post, Comment } = require("../../models");
 
-const {User,Post,Comment}=require('../../models');
+//SIGNUP ROUTE
 
-//Route /user/signup
+/* Get username and password from form and create a new user in user table */
 
-router.post('/signup', async (req, res) => {
-    try {
+router.post("/signup", async (req, res) => {
+  try {
+    const userData = await User.create(req.body);
 
-      console.log(req.body);  
-      const userData = await User.create(req.body);
-      console.log(userData);  
+    req.session.save(() => {
+      req.session.user_id = userData.id;
+      req.session.logged_in = true;
+      req.session.username = userData.username;
+      res.status(200).json(userData);
+    });
+  } catch (err) {
+    res.status(400).json(err);
+  }
+});
 
-        req.session.save(() => {
-        req.session.user_id = userData.id;
-        req.session.logged_in = true;
-        req.session.username=userData.username;
-        res.status(200).json(userData);
-
-      });
-    } catch (err) {
-     
-      res.status(400).json(err);
-    }
-  });
-
-
-  //LOGIN ROUTE
+//LOGIN ROUTE
 
 /* Get the user data from the table using the username
 Verify the password with existing one for the user
@@ -34,9 +29,9 @@ If Valid,save the session with user id and loggin id and return userdata */
 
 router.post("/login", async (req, res) => {
   try {
-    console.log("Username from req",req.body.username);
-
-    const userData = await User.findOne({ where: { username: req.body.username } });
+    const userData = await User.findOne({
+      where: { username: req.body.username },
+    });
     console.log(userData);
 
     if (!userData) {
@@ -56,16 +51,15 @@ router.post("/login", async (req, res) => {
         .json({ message: "Incorrect username or password, please try again" });
       return;
     }
-    console.log("Valid Password",validPassword);
-console.log("user id after login",userData.id);
+
     req.session.save(() => {
       req.session.user_id = userData.id;
       req.session.logged_in = true;
-      req.session.username=userData.username;
+      req.session.username = userData.username;
       res.json({
         user: userData,
         logged_in: req.session.logged_in,
-        username:userData.username,
+        username: userData.username,
         message: "You are now logged in!",
       });
     });
@@ -75,12 +69,12 @@ console.log("user id after login",userData.id);
 });
 
 
-  //LOGOUT ROUTE
+
+//LOGOUT ROUTE
 
 /*
   Destroy the session for the user,if user is logged in
   */
- 
 
 router.post("/logout", (req, res) => {
   if (req.session.logged_in) {
@@ -92,6 +86,4 @@ router.post("/logout", (req, res) => {
   }
 });
 
- 
-
-  module.exports=router;
+module.exports = router;

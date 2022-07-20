@@ -44,11 +44,5 @@ User.hasMany(Comment,{
 })
 
 
-// User.belongsToMany(Post, { through: 'Comment' });
-// Post.belongsToMany(User, { through: 'Comment' });
-
-
-
-
 module.exports = {User,Comment,Post};
 

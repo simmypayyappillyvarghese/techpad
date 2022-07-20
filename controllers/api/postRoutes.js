@@ -3,10 +3,11 @@ const router=require('express').Router();
 
 const {User,Post,Comment}=require('../../models');
 
+//ROUTE FOR ADDING COMMENT
 
 router.post('/addComment', async (req, res) => {
 
-    console.log("Entering add comment");  
+   
     try {
       req.body.user_id=req.session.user_id;
       const commentData = await Comment.create(req.body);
@@ -21,18 +22,15 @@ router.post('/addComment', async (req, res) => {
       
       }
 
-   
-      
-  
-    
     catch (err) {
       res.status(400).json(err);
     }
   });
 
-  router.post('/newpost', async (req, res) => {
 
-    console.log("Entering /newpost");
+  //ROUTE FOR NEW POST
+  
+  router.post('/newpost', async (req, res) => {
 
 try {
       req.body.user_id=req.session.user_id;
