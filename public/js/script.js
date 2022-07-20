@@ -1,12 +1,23 @@
-const signupLink=document.querySelector('#signup-link');
-const username=document.querySelector('#username').value.trim();
-const password=document.querySelector('#password').value.trim();
+
+const newPostForm=document.querySelector('#new-post-form');
+const newPostBtn=document.querySelector('#new-post-btn');
 
 
 
-       
+
+
+function redirectToPostHandler(){
+
+   document.location.replace('/home/newpost');
+
 }
-signupLink.addEventListener('click',signUpHandler);
+
+
+
+
+newPostBtn.addEventListener('click',redirectToPostHandler);
+
+
 
 
 

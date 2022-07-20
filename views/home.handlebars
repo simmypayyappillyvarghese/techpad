@@ -1,7 +1,17 @@
     <div class="container-fluid d-flex flex-column justify-content-between py-2 my-2">
       {{#if logged_in}}
-       <h4 class="py-2">Your Dashboard</h4>
-      {{/if}}
-       <button id="new-post-btn" class="btn my-5">Create New Post</button>
+        <h6 class="align-self-end text-secondary">{{username}} logged in !!</h6>
+        {{!-- <h4 class="py-2">Your Dashboard</h4> --}}
+      {{/if}} 
+      <div class="post-div-container" data-logged={{logged_in}}>
+      {{#each posts as |post|}}
+        <div class="post-div d-flex flex-column" data-id={{post.id}}>
+          <h6>{{post.title}}</h6>
+          <small class="align-self-end">Posted by {{post.user.username}} on {{post.formattedDate}}</small>
+          <p>{{post.content}}</p>
+         </div>
+      {{/each}}
+      </div>
     </div>
+    <script src="/js/post.js"></script>
    

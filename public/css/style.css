@@ -45,6 +45,15 @@ nav a{
     
 }
 
+h4{
+    background-color: var(--body-color);
+    border-radius: 0.3rem;
+    margin-left:2rem;
+    margin-top:2rem;
+    padding:0.2rem 0.5rem;
+   
+}
+
 #login-container a{
     color:var(--nav-color); 
 }
@@ -54,4 +63,22 @@ nav a{
     color: var(--body-color);
 }
 
+.post-div{
 
+    border:1px solid var(--link-color);
+    padding: 0.4rem;
+    margin:0.3rem;
+}
+
+.post-div h6{
+    background-color:var(--link-color) ;
+    padding: 1rem;
+    color:var(--nav-color);
+    text-transform: uppercase;
+}
+
+.post-div small{
+    font-style: italic;
+    margin:0.2rem;
+    padding: 0.1rem;
+}
