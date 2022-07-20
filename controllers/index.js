@@ -201,8 +201,10 @@ router.get("/dashboard", async (req, res) => {
 
 //NEW POST ---TO DO
 
-router.get("/home/newpost", async (req, res) => {
-  res.render("newpost", { logged_in: req.session.logged_in });
+router.get("/newpost", async (req, res) => {
+
+  res.render("newpost",{ logged_in: req.session.logged_in});
+
 });
 
 module.exports = router;

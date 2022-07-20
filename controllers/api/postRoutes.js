@@ -35,6 +35,28 @@ router.post('/addComment', async (req, res) => {
     }
   });
 
+  router.post('/newpost', async (req, res) => {
+
+    console.log("Entering /newpost");
+
+try {
+      req.body.user_id=req.session.user_id;
+      const commentData = await Post.create(req.body);
+
+      req.session.save(() => {
+        req.session.post_id = req.body.post_id;
+        
+        res.json({
+          message: "Post Created",
+        });
+      });
+      
+      }
+      catch(e){console.log(e);}
+    }
+    
+    
+    );
 
 
 

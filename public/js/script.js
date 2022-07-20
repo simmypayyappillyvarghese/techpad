@@ -1,21 +1,14 @@
 
-const newPostForm=document.querySelector('#new-post-form');
-const newPostBtn=document.querySelector('#new-post-btn');
-
-
-
-
+const createPostBtn=document.querySelector('#create-post-btn');
 
 function redirectToPostHandler(){
 
-   document.location.replace('/home/newpost');
+   document.location.replace('/newpost');
 
 }
 
 
-
-
-newPostBtn.addEventListener('click',redirectToPostHandler);
+createPostBtn.addEventListener('click',redirectToPostHandler);
 
 
 
