@@ -7,7 +7,7 @@ const session = require('express-session');
 const {User,Post,Comment}=require('./models');
 
 const SequelizeStore = require('connect-session-sequelize')(session.Store);
-// const helpers = require('./utils/helpers'); NOT YET USING
+const helpers = require('./utils/helpers'); 
 
 const sequelize = require('./config/connection');
 
@@ -16,7 +16,7 @@ const PORT = process.env.PORT || 3002;
 
 // Create the Handlebars.js engine object
 
-const hbs = exphbs.create();
+const hbs = exphbs.create({helpers});
 
 const sess = {
   secret: 'Super secret secret',
