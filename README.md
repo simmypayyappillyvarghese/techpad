@@ -99,7 +99,7 @@ Below is the Dashboard screenshot
 
 <br>
 
-![Dashboard Screenshot](./public/images/dashboard_screenshot.png)
+![Dashboard Screenshot](./public/images/edit_post-screenshot.png)
 
 Below is the Create Post screenshot
 
@@ -111,3 +111,8 @@ Below is the Create Post screenshot
 Below is the Screenshot when Uer is logged in and clicks on a post
 
 ![ Post Screenshot](./public/images/post_screenshot.png)
+
+Below is teh screenshot with update delete post options
+
+
+![Edit Delete Post](./public/images/update-delete-post-screenshot.png)

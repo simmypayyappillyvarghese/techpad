@@ -1,6 +1,11 @@
 const sequelize = require('../config/connection');
 const  {User,Post,Comment} = require('../models');
 
+// const Sequelize = require('sequelize');
+
+
+// let sequelize= new Sequelize(process.env.JAWSDB_URL);
+
 const userData = require('./user.json');
 const postData= require('./post.json');
 const commentData= require('./comment.json');
