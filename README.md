@@ -3,7 +3,9 @@
 
 ## Project Description
 
-CMS style blog site based on MVC paradigm utilizing Handlebar.js as Templating Language and Sequalize as ORM and  express-session npm package for authentication
+CMS style blog site based on MVC paradigm utilizing Handlebar.js as Templating Language and Sequalize as ORM and  express-session npm package for authentication.
+
+TechPad allows user to create post,add comments(need to be signed in),view all the posts by other useras well in home tab,access their own posts from dasboard ,edit the post and delete the post as well.
 
 ### User Story
 <br>

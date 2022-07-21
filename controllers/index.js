@@ -123,6 +123,7 @@ router.get("/post", async (req, res) => {
       post,
       comments,
       logged_in: req.session.logged_in,
+      username:req.session.username
     });
   } catch (e) {
     console.log(e);
@@ -175,6 +176,8 @@ router.get("/post/:postId", async (req, res) => {
           post,
           comments,
           logged_in: req.session.logged_in,
+          username:req.session.username
+
         });
       } else {
         res.status(404).json({ message: "Not found" });
@@ -219,10 +222,59 @@ router.get("/dashboard", async (req, res) => {
   }
 });
 
-//NEW POST ---TO DO
+//NEW POST 
 
 router.get("/newpost", async (req, res) => {
   res.render("newpost", { logged_in: req.session.logged_in });
 });
+
+
+//EDIT/UPDATE POST ROUTE
+
+router.get("/edit/:postId", async (req, res) => {
+
+
+  const username=req.session.username;
+
+  console.log("Post id and User id",req.params.postId);
+
+  const postData=await Post.findByPk(req.params.postId);
+
+  const post=postData.get({plain:true});
+  console.log(post);
+
+  res.render('editPost',{logged_in:req.session.logged_in,post});
+
+});
+
+
+
+//DELETE POST
+
+// router.get("/delete/:postId", async (req, res) => {
+
+
+//   // const username=req.session.username;
+
+//   console.log("Post id and User id",req.params.postId);
+
+//   const postData=await Post.findByPk(req.params.postId);
+
+//   const post=postData.get({plain:true});
+//   console.log(post);
+
+//   res.render('editPost',{logged_in:req.session.logged_in,post});
+
+// });
+
+
+// router.get("/updatePost", async (req, res) => {
+
+//   console.log(req.session.title);
+//   res.render("updatepost",{ logged_in: req.session.logged_in,title:req.session.title,content:req.session.content});
+
+// });
+
+
 
 module.exports = router;

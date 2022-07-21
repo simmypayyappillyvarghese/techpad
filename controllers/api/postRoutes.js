@@ -51,5 +51,49 @@ try {
     );
 
 
+  
+//UPDATE POST ROUTE
+  
+router.post("/edit", async (req, res) => {
+
+  const updatePostData=await Post.update({title:req.body.title,content:req.body.content},{
+
+        where:{id:req.body.postId}
+  });
+
+
+  if(updatePostData){
+
+    res.status(200).json({logged_in:req.session.logged_in});
+  }
+  else{
+    res.status(404).json({message:"Post Not Found !!!"});
+  }
+});
+
+
+//DELETE
+
+router.delete("/delete/:postId", async (req, res) => {
+
+  const deletedData=await Post.destroy({
+
+        where:{id:req.params.postId}
+  });
+
+
+  if(deletedData){
+
+    res.status(200).json({logged_in:req.session.logged_in});
+  }
+  else{
+    res.status(404).json({message:"Post Not Found !!!"});
+  }
+});
+
+
+
+
+
 
   module.exports=router;

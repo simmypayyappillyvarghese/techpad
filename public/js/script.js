@@ -7,8 +7,11 @@ function redirectToPostHandler(){
 
 }
 
-
 createPostBtn.addEventListener('click',redirectToPostHandler);
+
+
+
+
 
 
 
